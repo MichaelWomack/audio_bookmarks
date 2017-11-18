@@ -1,10 +1,7 @@
-.nav-toolbar {
-    position: fixed;
-    height: 56px;
-    width: 100%;
-    z-index: 2;
-}
 
 .tabs-container {
-    top: 56;
+    position: relative;
+    width: 100%;
+    top: 60px;
+    left: 0px;
 }

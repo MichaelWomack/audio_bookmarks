@@ -18,6 +18,11 @@ export class LibraryTabComponent implements OnInit {
     audioAuthor: 'Benjamin Graham'
   };
 
+  private audio3: AudioInfo = {
+    audioName: 'Investing Again',
+    audioAuthor: 'Benjamin Graham'
+  };
+
   constructor() {
 
   }

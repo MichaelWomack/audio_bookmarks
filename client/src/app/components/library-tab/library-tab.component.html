@@ -1,7 +1,13 @@
-<h3>Library Tab Content</h3>
-<div fxLayout="column" fxLayoutAlign="center center">
-    <app-audio-card [audioInfo]="audio1"></app-audio-card>
-    <app-audio-card [audioInfo]="audio2"></app-audio-card>
+<div class="tab-content" fxLayout="column" fxLayoutAlign="center center">
+    <div class="tab-heading">
+        <h2>Library</h2>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="audio-card-container">
+        <app-audio-card [audioInfo]="audio1"></app-audio-card>
+        <app-audio-card [audioInfo]="audio2"></app-audio-card>
+        <app-audio-card [audioInfo]="audio3"></app-audio-card>
+    </div>
 </div>
 
 
