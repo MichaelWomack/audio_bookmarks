@@ -1,10 +1,22 @@
 import mysql.connector
-from contextlib import contextmanager
+from contextlib import ContextDecorator
+from app.config.app_config import Config
 
-class DatabaseManager(object):
 
-    def __init__(self, db_config):
-        self.db_config = db_config
+class ConnectionManager(ContextDecorator):
 
-    def get_connection(self):
-        return mysql.connector.connect(**self.db_config)
+    def __init__(self, config=None):
+        if not config:
+            self.config = Config()
+        else:
+            self.config = config
+
+
+
+    def __enter__(self):
+        self.conn = mysql.connector.connect(**self.config.db_config)
+        return self.conn
+
+    def __exit__(self, *exc):
+        self.conn.close()
+        return
