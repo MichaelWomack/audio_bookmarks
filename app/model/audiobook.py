@@ -1,5 +1,6 @@
+from app.model.base.json_serializable import JsonSerializable
 
-class AudioBook(object):
+class AudioBook(JsonSerializable):
 
     def __init__(self, **kwargs):
         self._name = kwargs.get('name', None)

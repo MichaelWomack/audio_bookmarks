@@ -6,6 +6,7 @@ connection_manager = ConnectionManager()
 
 
 class AudiobookDAO( object ):
+
 	def __init__( self, config ):
 		self.config = config
 
