@@ -9,7 +9,7 @@ app.register_blueprint(audiobooks, url_prefix='/audiobooks')
 
 @app.route('/')
 def index():
-    print 'serving index'
+    print ('serving index')
     return app.send_static_file('index.html')
 
 
