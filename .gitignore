@@ -3,3 +3,4 @@ client/dist
 app/**/*.ini
 app/**/*.pyc
 .idea
+app/**/__pycache__
