@@ -1,5 +1,6 @@
 import os
 import configparser
+from pkg_resources import resource_filename
 
 class Config():
 
@@ -10,13 +11,20 @@ class Config():
             self.env = env.lower()
 
         config = configparser.ConfigParser()
-        config_file_path = os.path.join(os.path.dirname(__file__), '../resources/conf/{}.ini'.format(self.env))
+        config_file_path = resource_filename('app.resources.conf', '{}.ini'.format(self.env))
         config.read(config_file_path)
 
         self.db_config = {
             'host': config['database']['host'],
             'port': config['database']['port'],
-            'database': config['database']['database'],
+            'dbname': config['database']['dbname'],
             'user': config['database']['user'],
             'password': config['database']['password']
         }
+
+def main():
+    a = Config()
+    print(a.db_config)
+
+if __name__ == '__main__':
+    main()

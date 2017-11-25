@@ -1,9 +1,10 @@
 create table if not exists Audiobooks (
-    id int not null AUTO_INCREMENT,
-    name varchar(255) not null,
-    author varchar(255) not null,
+    id SERIAL PRIMARY KEY,
+    name varchar(255) NOT NULL,
+    author varchar(255),
     description varchar(500),
+    publish_year INTEGER,
     storage_url varchar(255),
-    date_created date,
-    audio_position_seconds int
-)
+    created_timestamp TIMESTAMP NOT NULL,
+    audio_position_seconds INTEGER
+);

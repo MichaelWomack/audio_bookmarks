@@ -1,10 +1,13 @@
+from enum import Enum, auto
 
-class Environment(object):
 
-    TEST = 'TEST'
-    NP = 'NP'
-    PR = 'PR'
+class Environment(Enum):
+
+    TEST = auto()
+    NP = auto()
+    PR = auto()
 
     @staticmethod
-    def values(self):
-        return (self.TEST, self.NP, self.PR)
+    def values():
+        return tuple([name for name in Environment.__members__.keys()])
+

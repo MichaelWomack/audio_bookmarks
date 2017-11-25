@@ -1,4 +1,4 @@
-import mysql.connector
+import psycopg2
 from contextlib import ContextDecorator
 from app.config.app_config import Config
 
@@ -14,7 +14,7 @@ class ConnectionManager(ContextDecorator):
 
 
     def __enter__(self):
-        self.conn = mysql.connector.connect(**self.config.db_config)
+        self.conn = psycopg2.connect(**self.config.db_config)
         return self.conn
 
     def __exit__(self, *exc):
