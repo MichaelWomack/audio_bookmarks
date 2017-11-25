@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { AudioInfo } from './../../model/audio-info';
+import { Audiobook } from '../../model/audiobook';
 @Component({
   selector: 'app-audio-card',
   templateUrl: './audio-card.component.html',
@@ -8,12 +8,12 @@ import { AudioInfo } from './../../model/audio-info';
 export class AudioCardComponent implements OnInit {
 
   @Input()
-  private audioInfo: AudioInfo;
+  private audiobook: Audiobook;
 
   constructor() {
-    console.log(this.audioInfo);
    }
 
   ngOnInit() {
+    console.log(this.audiobook);
   }
 }

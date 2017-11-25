@@ -1,15 +1,15 @@
 <mat-card class="audio-card">
     <mat-card-header>
         <mat-card-title>
-            <h2>{{audioInfo.audioName}}</h2>
+            <h2>{{audiobook.name}}</h2>
         </mat-card-title>
-        <mat-card-subtitle>{{audioInfo.audioAuthor}}</mat-card-subtitle>
+        <mat-card-subtitle>{{audiobook.author}}</mat-card-subtitle>
     </mat-card-header>
 
     <mat-card-content>
-        Description of the audio?
+        {{ audiobook.description }}
     </mat-card-content>
-    
+
     <mat-card-actions>
         <button mat-mini-fab>
             <mat-icon aria-label="Example icon-button with a heart icon">favorite</mat-icon>

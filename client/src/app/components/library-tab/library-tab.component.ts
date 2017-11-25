@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AudioInfo } from './../../model/audio-info';
+import { Audiobook } from '../../model/audiobook';
+import { AudiobooksService } from '../../services/audiobooks.service';
 
 @Component({
   selector: 'app-library-tab',
@@ -8,26 +9,17 @@ import { AudioInfo } from './../../model/audio-info';
 })
 export class LibraryTabComponent implements OnInit {
 
-  private audio1: AudioInfo = {
-    audioName: 'The Intelligent Investor',
-    audioAuthor: 'Benjamin Graham'
-  };
+  private audiobooks: Audiobook[];
 
-  private audio2: AudioInfo = {
-    audioName: 'Security Analysis',
-    audioAuthor: 'Benjamin Graham'
-  };
-
-  private audio3: AudioInfo = {
-    audioName: 'Investing Again',
-    audioAuthor: 'Benjamin Graham'
-  };
-
-  constructor() {
-
-  }
+  constructor(private audiobooksService: AudiobooksService) {}
 
   ngOnInit() {
+    this.getAudiobooks();
+    console.log(this.audiobooks);
   }
 
+  getAudiobooks(): void {
+    this.audiobooksService.getAudiobooks()
+      .subscribe((audiobooks) => this.audiobooks = audiobooks);
+  }
 }

@@ -4,8 +4,6 @@
     </div>
     <mat-divider></mat-divider>
     <div class="audio-card-container">
-        <app-audio-card [audioInfo]="audio1"></app-audio-card>
-        <app-audio-card [audioInfo]="audio2"></app-audio-card>
-        <app-audio-card [audioInfo]="audio3"></app-audio-card>
+        <app-audio-card *ngFor="let audiobook of audiobooks" [audiobook]="audiobook"></app-audio-card>
     </div>
 </div>
