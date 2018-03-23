@@ -1,6 +1,6 @@
 import abc
 
-class JsonSerializable(abc.ABC):
+class JsonSerializable( abc.ABC ):
 
     @abc.abstractmethod
     def json(self):
@@ -9,3 +9,4 @@ class JsonSerializable(abc.ABC):
     @abc.abstractclassmethod
     def from_json(cls):
         pass
+

@@ -8,3 +8,4 @@ create table if not exists Audiobooks (
     created_timestamp TIMESTAMP NOT NULL,
     audio_position_seconds INTEGER
 );
+

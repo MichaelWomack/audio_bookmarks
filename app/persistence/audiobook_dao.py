@@ -1,23 +1,18 @@
-from app.persistence.database_manager import ConnectionManager
-from app.config.app_config import Config
-from app.model.audiobook import AudioBook
-
-connection_manager = ConnectionManager()
-
+from ..persistence import ConnectionManager
+from ..model import AudioBook
 
 class AudiobookDAO( object ):
 
+	def __init__(self, connection_manager: ConnectionManager):
+		self.connection_manager = connection_manager
 
-	def __init__( self, config ):
-		self.config = config
-
-	def insert( self, audiobook ):
+	def insert( self, audiobook: AudioBook ):
 		"""
 		:param audiobook: audiobook object to insert
 		:type audiobook: app.model.audiobook.Audiobook
 		:return:
 		"""
-		with connection_manager as conn:
+		with self.connection_manager as conn:
 			cur = conn.cursor()
 			insert_query = """
 				INSERT INTO audiobooks (
@@ -41,10 +36,15 @@ class AudiobookDAO( object ):
 
 
 
-	def update( self, audiobook ):
-		with connection_manager as conn:
+	def update( self, audiobook: AudioBook ):
+		"""
+		Updates the given audiobook
+		:type audiobook: app.model.audiobook.AudioBook
+		:param audiobook: audio book to update
+		"""
+		with self.connection_manager as conn:
 			cur = conn.cursor()
-			insert_query = """
+			update_query = """
 				UPDATE audiobooks 
 				SET
 					name = %s, 
@@ -62,24 +62,24 @@ class AudiobookDAO( object ):
 			          audiobook.storage_url,
 			          audiobook.audio_position_seconds,
 			          audiobook.id)
-			cur.execute( insert_query, record )
+			cur.execute( update_query, record )
 			conn.commit()
 
 
-
-	def get_by_id( self, id ):
+	def get_by_id( self, id: int ) -> AudioBook:
 		"""
 		:type id: int
 		:param id: audiobook id
 		:return: audiobook record
 		:rtype: app.model.audiobook.Audiobook
 		"""
-		with connection_manager as conn:
+		with self.connection_manager as conn:
 			cur = conn.cursor()
 			query = """
 				SELECT 
 					id, 
 				 	name,
+				 	author,
 				 	description,
 				 	publish_year,
 				 	storage_url,
@@ -90,22 +90,24 @@ class AudiobookDAO( object ):
 			"""
 			cur.execute( query, (id,) )
 			record = cur.fetchone()
-			return AudioBook( id=record[ 0 ],
-			                  name=record[ 1 ],
-			                  description=record[ 2 ],
-			                  publish_year=record[ 3 ],
-			                  storage_url=record[ 4 ],
-			                  audio_position_seconds=record[ 5 ],
-			                  created_timestamp=record[ 6 ] )
+			if record:
+				return AudioBook( id=record[ 0 ],
+								  name=record[ 1 ],
+								  author=record [ 2 ],
+								  description=record[ 3 ],
+								  publish_year=record[ 4 ],
+								  storage_url=record[ 5 ],
+								  audio_position_seconds=record[ 6 ],
+								  created_timestamp=record[ 7 ] )
 
 
 
-	def get_all( self ):
+	def get_all( self ) -> [AudioBook]:
 		"""
 		:rtype: list of app.model.audiobook.AudioBook
 		:return: list of AudioBook
 		"""
-		with connection_manager as conn:
+		with self.connection_manager as conn:
 			cur = conn.cursor()
 			query = """
 				SELECT 
@@ -120,21 +122,24 @@ class AudiobookDAO( object ):
 			"""
 			cur.execute( query )
 			result_set = cur.fetchall()
-			audiobooks = [ AudioBook.from_tuple( ab ) for ab in result_set ]
+
+			def from_tuple(tuple):
+				return AudioBook(
+					 id=tuple[ 0 ], name=tuple[ 1 ], description=tuple[ 2 ], publish_year=tuple[ 3 ],
+						storage_url=tuple[ 4 ], audio_position_seconds=tuple[ 5 ], created_timestamp=tuple[ 6 ]
+				)
+
+			audiobooks = [ from_tuple( record_tuple ) for record_tuple in result_set ]
 			return audiobooks
 
 
-def main():
-	config = Config()
-	dao = AudiobookDAO( config )
-	ab = AudioBook( id=5, name='A Little Book of Common Sense Investing',
-	                author='John C. Dogle',
-	                publish_year=1900,
-	                description='Investing with low-cost index funds',
-	                storage_url='gs://audiobucket/media',
-	                audio_position_seconds=19 )
-	dao.update( ab )
+	def delete(self, id: int):
+		with self.connection_manager as conn:
+			cur = conn.cursor()
+			query = """
+				DELETE from audiobooks where id = %s;
+			"""
+			cur.execute(query, (id,))
+			conn.commit()
 
 
-if __name__ == '__main__':
-	main()

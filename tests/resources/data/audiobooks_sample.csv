@@ -1,0 +1,4 @@
+id,name,author,description,publish_year,storage_url,created_timestamp,audio_position_seconds
+1,The Intelligent Investor,Benjamin Graham,A book about investing,1942,gs://audiobucket/media,2017-11-24 23:42:26.758438,12
+2,Security Analysis,Benjamin Graham,A book about security analysis,1932,gs://audiobucket/media,2017-11-24 23:43:48.155525,12
+3,A Little Book of Common Sense Investing,John C. Dogle,Investing with low-cost index funds,1900,gs://audiobucket/media,2017-11-25 00:57:11.686471,19

@@ -22,9 +22,4 @@ class Config():
             'password': config['database']['password']
         }
 
-def main():
-    a = Config()
-    print(a.db_config)
-
-if __name__ == '__main__':
-    main()
+        self.api_key = config['google']['key']
