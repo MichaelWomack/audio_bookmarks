@@ -3,4 +3,5 @@ client/dist
 app/**/*.ini
 app/**/*.pyc
 .idea
-app/**/__pycache__
+tests/.pytest_cache
+**/__pycache__
