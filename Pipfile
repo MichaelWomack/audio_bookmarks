@@ -8,6 +8,7 @@ name = "pypi"
 [packages]
 
 flask = "*"
+gutils = {git = "https://github.com/MichaelWomack/gutils.git", editable = true, ref = "v0.4.0"}
 
 
 [dev-packages]

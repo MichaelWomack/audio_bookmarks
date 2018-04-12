@@ -1,9 +1,11 @@
-from flask import Blueprint, request, jsonify
-from app.persistence import AudiobookDAO
+from flask import Blueprint, jsonify, request
+from gutils.gcp.storage import CloudStorage
+
+from app import config
 from app.model import AudioBook
-from app.persistence import connection_manager
+from app.persistence import AudiobookDAO, connection_manager
 
-
+cloud_storage = CloudStorage.with_default_credentials()
 dao = AudiobookDAO(connection_manager=connection_manager)
 api = Blueprint( 'audiobooks', __name__ )
 
@@ -37,3 +39,20 @@ def delete(id):
 def get_by_id(id):
     audiobook = dao.get_by_id(id)
     return jsonify(audiobook.json())
+
+
+@api.route('/upload/id/<int:id>', methods=['POST'])
+def upload(id):
+    if 'file' in request.files:
+        f = request.files[ 'file' ]
+        audiobook = dao.get_by_id(id)
+
+        if not audiobook:
+            return jsonify(dict(message='Audiobook with id {id} does not exist.'.format(id=id))), 400
+
+        blob = cloud_storage.upload_blob_from_file(config.storage_bucket, f.name, f)
+        audiobook.storage_url = blob.media_link
+        dao.update(audiobook)
+        return jsonify(dict(message=dir(blob)))
+    else:
+        return jsonify(dict(message='No multipart form data containing \'file\' was uploaded')), 400
