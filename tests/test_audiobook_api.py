@@ -5,13 +5,15 @@ from pytest_mock import mocker
 
 from app.model import AudioBook
 from app.persistence.audiobook_dao import AudiobookDAO
-from app.main import app
+from app.main import create_app
 
 
 class TestAudiobookApi( object ):
 
 	@pytest.fixture
 	def client( self ):
+		### TODO: mock the oauth2
+		app = create_app()
 		app.testing = True
 		return app.test_client()
 

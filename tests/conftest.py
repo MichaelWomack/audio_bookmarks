@@ -6,13 +6,13 @@ from app.config import Config
 
 @pytest.fixture
 def get_test_config():
-	config = Config(env='test')
+	config = Config()
 	return config
 
 @pytest.fixture
 def get_test_connection_manager():
 	config = get_test_config()
-	connection_manager = ConnectionManager(config=config)
+	connection_manager = ConnectionManager(config=config.DB_CONFIG)
 	return connection_manager
 
 @pytest.fixture

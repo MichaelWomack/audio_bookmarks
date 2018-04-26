@@ -9,9 +9,17 @@ name = "pypi"
 
 flask = "*"
 gutils = {git = "https://github.com/MichaelWomack/gutils.git", editable = true, ref = "v0.4.0"}
+"oauth2client" = "*"
+pytest = "*"
+"psycopg2" = "*"
+python-dotenv = "*"
+pytest-mock = "*"
 
 
 [dev-packages]
 
 pytest = "*"
 pytest-mock = "*"
+python-dotenv = "*"
+"flake8" = "*"
+"autopep8" = "*"
