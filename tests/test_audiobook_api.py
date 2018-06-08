@@ -12,7 +12,6 @@ class TestAudiobookApi( object ):
 
 	@pytest.fixture
 	def client( self ):
-		### TODO: mock the oauth2
 		app = create_app()
 		app.testing = True
 		return app.test_client()

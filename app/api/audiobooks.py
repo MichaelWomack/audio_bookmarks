@@ -22,6 +22,7 @@ def add_audiobook():
     return jsonify(audiobook.json())
 
 
+
 @api.route( '/', methods=[ 'PUT' ] )
 def update():
     audiobook = AudioBook.from_json(**request.get_json())
@@ -42,8 +43,7 @@ def get_by_id(id):
 
 
 @api.route('/upload/id/<int:id>', methods=['POST'])
-@oauth2.required
-def upload(id):
+def upload(track_id):
     if 'file' in request.files:
         f = request.files[ 'file' ]
         audiobook = dao.get_by_id(id)
@@ -51,10 +51,9 @@ def upload(id):
         if not audiobook:
             return jsonify(dict(message='Audiobook with id {id} does not exist.'.format(id=id))), 400
 
-        gcs_path = config.AUDIOBOOK_PATH_TEMPLATE.format(user_id=oauth2.user_id, audiobook_id=id, file_name=f.name)
+        user_id = 'idk_yet'
+        gcs_path = config.AUDIOBOOK_PATH_TEMPLATE.format(user_id=user_id, audiobook_id=id, file_name=f.name)
         blob = cloud_storage.upload_blob_from_file(config.GCP_BUCKET, gcs_path, f)
-        blob.acl.user(oauth2.email).grant_read()
-        blob.acl.save()
         blob.make_public()
 
         audiobook.storage_url = blob.media_link

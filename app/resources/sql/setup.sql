@@ -9,3 +9,10 @@ create table if not exists Audiobooks (
     audio_position_seconds INTEGER
 );
 
+
+create table if not exists Users (
+    id SERIAL PRIMARY KEY,
+    email varchar(50) NOT NULL UNIQUE, 
+    password varchar(255) NOT NULL
+);
+

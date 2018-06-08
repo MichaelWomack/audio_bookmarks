@@ -9,4 +9,3 @@ class JsonSerializable( abc.ABC ):
     @abc.abstractclassmethod
     def from_json(cls):
         pass
-

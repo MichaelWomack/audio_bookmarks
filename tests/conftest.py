@@ -26,9 +26,10 @@ def setup_test_db():
 # This causes weird issues with primary key syncronization. Load each record from csv?
 @pytest.fixture
 def load_test_records():
-	# setup_test_db()
+
+	### paramterize table_name, csv_data_file, sync_query_file
 	csv_file = pkg_resources.resource_filename( 'tests.resources.data', 'audiobooks_sample.csv' )
-	sync_query = pkg_resources.resource_filename('tests.resources.sql', 'sync_audiobook_ids.sql')
+	sync_query = pkg_resources.resource_filename('tests.resources.sql', 'sync_audiobook_sequence_ids.sql')
 	connection_manager = get_test_connection_manager()
 
 	with connection_manager as conn, open( csv_file ) as f, open(sync_query) as query_file:

@@ -11,9 +11,12 @@ class Config():
 		'user': os.environ[ 'DB_USER' ],
 		'password': os.environ[ 'DB_PASSWORD' ]
 	}
-	### Application Secrets
+
 	SECRET_KEY = os.environ[ 'SECRET_KEY' ]
-	GOOGLE_OAUTH2_CLIENT_ID = os.environ[ 'GOOGLE_OAUTH2_CLIENT_ID' ]
-	GOOGLE_OAUTH2_CLIENT_SECRET = os.environ[ 'GOOGLE_OAUTH2_CLIENT_SECRET' ]
+	ISSUER = os.environ['ISSUER']
+	SUBJECT = os.environ['SUBJECT']
+
+	# GOOGLE_OAUTH2_CLIENT_ID = os.environ[ 'GOOGLE_OAUTH2_CLIENT_ID' ]
+	# GOOGLE_OAUTH2_CLIENT_SECRET = os.environ[ 'GOOGLE_OAUTH2_CLIENT_SECRET' ]
 
 

@@ -15,6 +15,8 @@ pytest = "*"
 python-dotenv = "*"
 pytest-mock = "*"
 mock = "*"
+pyjwt = "*"
+"autopep8" = "*"
 
 
 [dev-packages]
